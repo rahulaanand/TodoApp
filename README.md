@@ -1,5 +1,5 @@
 # Todo Application
-This Todo app simplifies task management with both console and API features.
+Organize your tasks effortlessly! This easy-to-use Todo App combines a simple console and API features. Add, view, complete, and remove tasks with ease. Keep track of important dates, making task management a breeze. The console and API work together to make your to-do list simple and effective.
 
 ## Features
 - **Add Task:** Input task details like title, description, created date, and due date.
