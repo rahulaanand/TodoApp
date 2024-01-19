@@ -9,7 +9,6 @@ CREATE TABLE Users (
   Email VARCHAR(30)
 );
 
-
 -- Created a stored procedure for inserting into Users table
 CREATE PROCEDURE InsertUser
   @Name VARCHAR(50),
@@ -74,8 +73,7 @@ EXEC ViewAllUsers;
 
 EXEC ViewUserById @UserId = '5C0D753C-F9C8-4028-9CFC-EE1074621F27';
 
-EXEC UpdateUser @UserId = '5C0D753C-F9C8-4028-9CFC-EE1074621F27', @Name = 'Admin', @Password = 'Admin@10', @Email = 'admin@gmail.com';
-
-EXEC DeleteUser @UserId = '5C0D753C-F9C8-4028-9CFC-EE1074621F27';
-
-
+-- SELECT Query
+SELECT * FROM Users;
+SELECT * FROM TaskTitle;
+SELECT * FROM Task;

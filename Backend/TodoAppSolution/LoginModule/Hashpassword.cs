@@ -5,12 +5,26 @@ namespace LoginModule
 {
     public class HashPassword
     {
-        public static string Hash(string password)
+        public static string Hash(string password, int maxLength = 50)
         {
-            using (SHA256 sha256 = SHA256.Create())
+            using (SHA512 sha512 = SHA512.Create())
             {
-                byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
-                return BitConverter.ToString(hashedBytes).Replace("-", "").ToLower();
+                byte[] hashedBytes = sha512.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+                StringBuilder builder = new StringBuilder(hashedBytes.Length * 2);
+                foreach (byte b in hashedBytes)
+                {
+                    builder.Append(b.ToString("X2"));
+                }
+
+                string hashedPassword = builder.ToString().ToLower();
+
+                if (hashedPassword.Length > maxLength)
+                {
+                    hashedPassword = hashedPassword.Substring(0, maxLength);
+                }
+
+                return hashedPassword;
             }
         }
     }

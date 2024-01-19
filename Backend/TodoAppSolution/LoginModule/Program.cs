@@ -23,9 +23,9 @@ namespace LoginModule
                     Console.WriteLine("Enter your password:");
                     string password = Console.ReadLine();
 
-                    if (Authentication.IsUserRegistered(connectionString.connectionString, username, password))
+                    if (Authentication.AuthenticateUser(connectionString.connectionString, username, password))
                     {
-                        LoginDetails.loginDetails();
+                        LoginDetails.login();
                     }
                     else
                     {
