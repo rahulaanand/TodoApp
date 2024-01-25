@@ -6,21 +6,23 @@ public class TodoAppManager
 {
     public static void Start(Guid userId)
     {
-        Console.WriteLine($"Welcome to our Todo Application, User ID: {userId}");
+        Console.WriteLine($"\nWelcome  to our Todo Application, User ID: {userId}");
 
         while (true)
         {
             Console.WriteLine("Todo Application Menu:");
+
             Console.WriteLine("1. View Task Titles");
             Console.WriteLine("2. View Tasks");
             Console.WriteLine("3. Insert Task");
             Console.WriteLine("4. Change my Status");
             Console.WriteLine("5. View only my Completed Tasks");
             Console.WriteLine("6. View particular Task");
-            Console.WriteLine("7. Exit");
+            Console.WriteLine("7. Delete a particular Task");
 
+            Console.WriteLine("8. Exit");
 
-            Console.Write("Enter your choice (1-5): ");
+            Console.Write("Enter your choice (1-7): ");
             string? choice = Console.ReadLine();
 
             switch (choice)
@@ -48,6 +50,10 @@ public class TodoAppManager
                     FilterTaskTitle.GetTasksByTitle(userId, titleName);
                     break;
                 case "7":
+                    Guid taskIdToDelete = GetTaskIdFromUser();
+                    DeleteTask.DeleteTaskById(taskIdToDelete);
+                    break;
+                case "8":
                     Environment.Exit(0);
                     break;
                 default:
@@ -56,8 +62,7 @@ public class TodoAppManager
             }
         }
     }
-
-    private static Guid GetTaskIdFromUser()
+    public static Guid GetTaskIdFromUser()
     {
         Console.Write("Enter the Task ID: ");
         if (Guid.TryParse(Console.ReadLine(), out Guid taskId))
