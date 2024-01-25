@@ -93,3 +93,72 @@ EXEC ViewTaskById @TaskId = '60224F20-9B8A-4180-BDC9-50916E0837E3';
 SELECT * FROM Users;
 SELECT * FROM TaskTitle;
 SELECT * FROM Task;
+
+Drop PROCEDURE ViewTasksWithDetails;
+
+-- Stored procedure to retrieve tasks with user and title details
+CREATE PROCEDURE ViewTasksWithDetails
+AS
+BEGIN
+  SELECT 
+    Task.TaskId,
+    Task.Description,
+    Task.CreatedAt,
+    Task.DueTime,
+    Task.Status,
+    TaskTitle.TitleName
+  FROM 
+    Task
+    INNER JOIN TaskTitle ON Task.TitleId = TaskTitle.Id;
+END;
+
+EXEC ViewTasksWithDetails;
+
+-- Stored procedure to change the status of a task to Completed
+CREATE PROCEDURE ChangeTaskStatusToCompleted
+  @TaskId UNIQUEIDENTIFIER
+AS
+BEGIN
+  UPDATE Task
+  SET
+    Status = 'Completed'
+  WHERE TaskId = @TaskId;
+END;
+
+-- Stored procedure to retrieve completed tasks for a user
+CREATE PROCEDURE GetCompletedTasks
+  @UserId UNIQUEIDENTIFIER
+AS
+BEGIN
+  SELECT 
+    Task.TaskId,
+    Task.Description,
+    Task.CreatedAt,
+    Task.DueTime,
+    Task.Status,
+    TaskTitle.TitleName
+  FROM 
+    Task
+    INNER JOIN TaskTitle ON Task.TitleId = TaskTitle.Id
+  WHERE 
+    Task.UserId = @UserId
+    AND Task.Status = 'Completed';
+END;
+	
+CREATE PROCEDURE ViewTasksWithDetailsByUserId
+  @UserId UNIQUEIDENTIFIER
+AS
+BEGIN
+  SELECT 
+    Task.TaskId,
+    Task.Description,
+    Task.CreatedAt,
+    Task.DueTime,
+    Task.Status,
+    TaskTitle.TitleName
+  FROM 
+    Task
+    INNER JOIN TaskTitle ON Task.TitleId = TaskTitle.Id
+  WHERE 
+    Task.UserId = @UserId;
+END;

@@ -77,3 +77,19 @@ EXEC ViewUserById @UserId = '5C0D753C-F9C8-4028-9CFC-EE1074621F27';
 SELECT * FROM Users;
 SELECT * FROM TaskTitle;
 SELECT * FROM Task;
+
+
+-- Stored procedure to get Task using UserId
+CREATE PROCEDURE GettaskByUserId
+  @UserId NVARCHAR(50)
+AS
+BEGIN
+  SELECT TitleId, Description, CreatedAt, DueTime, Status
+  FROM Task
+  WHERE UserId = @UserId;
+END;
+
+
+Drop procedure GettaskByUserId
+
+Exec GettaskByUserId '907A5248-7120-4DAE-B756-3AFC4493F67E';

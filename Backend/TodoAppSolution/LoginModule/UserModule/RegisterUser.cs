@@ -1,6 +1,6 @@
 ﻿using Microsoft.Data.SqlClient;
 
-namespace LoginModule
+namespace LoginModule.LoginModule
 {
     public class RegisterUser
     {
@@ -22,4 +22,4 @@ namespace LoginModule
             }
         }
     }
-}
+};
