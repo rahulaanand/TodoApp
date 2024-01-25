@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace LoginModule
+namespace LoginModule.LoginModule
 {
     public class HashPassword
     {
