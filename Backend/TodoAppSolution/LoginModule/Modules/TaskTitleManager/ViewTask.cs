@@ -1,7 +1,8 @@
 ﻿using Microsoft.Data.SqlClient;
 using System.Data;
+using System.Reflection.PortableExecutable;
 
-namespace LoginModule.Modules.TaskManager
+namespace LoginModule.Modules.TaskTitleManager
 {
     class ViewTask
     {
