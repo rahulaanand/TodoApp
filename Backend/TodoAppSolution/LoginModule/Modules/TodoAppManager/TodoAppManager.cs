@@ -1,6 +1,7 @@
 ﻿using LoginModule.Modules.TaskManager;
 using LoginModule.Modules.TaskManagerModule;
 using LoginModule.Modules.TaskTitle;
+using LoginModule.Modules.TaskTitleManager;
 
 public class TodoAppManager
 {
@@ -10,20 +11,24 @@ public class TodoAppManager
 
         while (true)
         {
-            Console.WriteLine("Todo Application Menu:");
+            Console.WriteLine("\nTodo Application Menu:");
 
             Console.WriteLine("1. View Task Titles");
-            Console.WriteLine("2. View Tasks");
-            Console.WriteLine("3. Insert Task");
-            Console.WriteLine("4. Change my Status");
-            Console.WriteLine("5. View only my Completed Tasks");
-            Console.WriteLine("6. View particular Task");
-            Console.WriteLine("7. Delete a particular Task");
+            Console.WriteLine("2. Insert Task Title");
+            Console.WriteLine("3. View Tasks");
+            Console.WriteLine("4. Insert Task");
+            Console.WriteLine("5. Change my Status");
+            Console.WriteLine("6. View only my Completed Tasks");
+            Console.WriteLine("7. View particular Task");
+            Console.WriteLine("8. Delete a particular Task");
+            Console.WriteLine("9. Delete a particular Task Title");
 
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("10. Exit");
 
             Console.Write("Enter your choice (1-7): ");
+
             string? choice = Console.ReadLine();
+            Console.WriteLine("\n");
 
             switch (choice)
             {
@@ -31,29 +36,40 @@ public class TodoAppManager
                     ViewTask.ViewTaskTitles();
                     break;
                 case "2":
-                    ViewTaskbyUserId.ViewTasksWithDetails(userId);
+                    ViewTask.ViewTaskTitles();
+                    AddTaskTitle.AddNewTaskTitle();
                     break;
                 case "3":
-                    TaskInsertion.InsertTask(userId);
+                    ViewTaskbyUserId.ViewTasksWithDetails(userId);
                     break;
                 case "4":
+                    TaskInsertion.InsertTask(userId);
+                    break;
+                case "5":
                     Guid taskId = GetTaskIdFromUser();
                     ChangeStatus.MarkTaskAsCompleted(taskId);
                     break;
-                case "5":
+                case "6":
                     CheckStatus.GetCompletedTasks(userId);
                     break;
-                case "6":
+                case "7":
                     ViewTask.ViewTaskTitles();
                     Console.Write("Enter the task title: ");
-                    string titleName = Console.ReadLine();
-                    FilterTaskTitle.GetTasksByTitle(userId, titleName);
+                    int titleId = int.Parse(Console.ReadLine());
+                    FilterTaskTitle.GetTasksByTitle(userId, titleId);
                     break;
-                case "7":
+                case "8":
+                    ViewTaskbyUserId.ViewTasksWithDetails(userId);
                     Guid taskIdToDelete = GetTaskIdFromUser();
                     DeleteTask.DeleteTaskById(taskIdToDelete);
                     break;
-                case "8":
+                case "9":
+                    ViewTask.ViewTaskTitles();
+                    Console.Write("Enter the Task Title: ");
+                    string titleNameToDelete = Console.ReadLine();
+                    DeleteTaskTitle.DeleteTaskTitleByName(titleNameToDelete);
+                    break;
+                case "10":
                     Environment.Exit(0);
                     break;
                 default:
@@ -69,7 +85,6 @@ public class TodoAppManager
         {
             return taskId;
         }
-
         Console.WriteLine("Invalid Task ID");
         return GetTaskIdFromUser();
     }

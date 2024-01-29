@@ -1,44 +1,63 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
+using LoginModule.Modules.TaskTitleManager;
 using Microsoft.Data.SqlClient;
 
 namespace LoginModule.Modules.TaskTitle
 {
     class FilterTaskTitle
     {
-        public static void GetTasksByTitle(Guid userId, string titleName)
+        public static void GetTasksByTitle(Guid userId, int titleIndex)
         {
             try
             {
-                ConnectionString connectionString = new ConnectionString();
+                List<TaskItem> availableTitles = ViewTask.ViewAllTaskTitles();
 
-                using (SqlConnection connection = new SqlConnection(connectionString.connectionString))
+                if (titleIndex >= 1 && titleIndex <= availableTitles.Count)
                 {
-                    connection.Open();
+                    Guid titleId = availableTitles[titleIndex - 1].TitleId;
 
-                    using (SqlCommand command = new SqlCommand("ViewTasksWithDetailsByUserId", connection))
+                    ConnectionString connectionString = new ConnectionString();
+
+                    using (SqlConnection connection = new SqlConnection(connectionString.connectionString))
                     {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.Parameters.AddWithValue("@UserId", userId);
+                        connection.Open();
 
-                        using (SqlDataReader reader = command.ExecuteReader())
+                        using (SqlCommand command = new SqlCommand("ViewTasksWithDetailsByUserId", connection))
                         {
-                            Console.WriteLine($"Tasks with Title '{titleName}':");
-                            while (reader.Read())
+                            command.CommandType = CommandType.StoredProcedure;
+                            command.Parameters.AddWithValue("@UserId", userId);
+
+                            using (SqlDataReader reader = command.ExecuteReader())
                             {
-                                if (reader.GetString(5) == titleName)
+                                Console.WriteLine($"Tasks with Title '{availableTitles[titleIndex - 1].TitleName}':");
+                                while (reader.Read())
                                 {
-                                    Console.WriteLine("Task Details:");
-                                    Console.WriteLine($"  Task ID: {reader.GetGuid(0)}");
-                                    Console.WriteLine($"  Title: {reader.GetString(5)}");
-                                    Console.WriteLine($"  Description: {reader.GetString(1)}");
-                                    Console.WriteLine($"  Created At: {reader.GetDateTime(2)}");
-                                    Console.WriteLine($"  Due Time: {reader.GetDateTime(3)}");
-                                    Console.WriteLine($"  Status: {reader.GetString(4)}");
-                                    Console.WriteLine();
+                                    if (reader.IsDBNull(0) == false && reader.IsDBNull(5) == false)
+                                    {
+                                        Guid taskId = reader.GetGuid(0);
+                                        string taskTitle = reader.GetString(5);
+
+                                        if (taskTitle != null && taskTitle.Equals(availableTitles[titleIndex - 1].TitleName, StringComparison.OrdinalIgnoreCase))
+                                        {
+                                            Console.WriteLine("Task Details:");
+                                            Console.WriteLine($"  Task ID: {taskId}");
+                                            Console.WriteLine($"  Title: {taskTitle}");
+                                            Console.WriteLine($"  Description: {reader.GetString(1)}");
+                                            Console.WriteLine($"  Created At: {reader.GetDateTime(2)}");
+                                            Console.WriteLine($"  Due Time: {reader.GetDateTime(3)}");
+                                            Console.WriteLine($"  Status: {reader.GetString(4)}");
+                                            Console.WriteLine();
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Invalid Task Title Index.");
                 }
             }
             catch (Exception ex)

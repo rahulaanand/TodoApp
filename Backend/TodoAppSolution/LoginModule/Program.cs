@@ -1,6 +1,5 @@
 ﻿using LoginModule;
 using LoginModule.LoginModule;
-using System;
 
 class Program
 {
@@ -10,12 +9,13 @@ class Program
 
         bool continueLoop = true;
 
-        Console.WriteLine("Hello and welcome to Your Personal Todo Manager!");
+        Console.WriteLine("Hello and welcome to Your Personal Todo Manager!\n");
 
         while (continueLoop)
         {
             Console.WriteLine("Are you already a member? (yes/no)");
             string response = Console.ReadLine().ToLower();
+            Console.WriteLine();
 
             if (response == "yes")
             {
@@ -23,7 +23,7 @@ class Program
                 string username = Console.ReadLine();
 
                 Console.WriteLine("Enter your password:");
-                string password = Console.ReadLine();
+                string password = GetHiddenInput();
 
                 Guid userId = Authentication.AuthenticateUser(connectionString.connectionString, username, password);
 
@@ -44,7 +44,7 @@ class Program
                 string username = Console.ReadLine();
 
                 Console.WriteLine("Enter your password:");
-                string password = Console.ReadLine();
+                string password = GetHiddenInput();
 
                 Console.WriteLine("Enter your email:");
                 string email = Console.ReadLine();
@@ -61,6 +61,27 @@ class Program
             Console.WriteLine("Do you want to continue? (yes/no)");
             string continueResponse = Console.ReadLine().ToLower();
             continueLoop = (continueResponse == "yes");
+        }
+
+        static string GetHiddenInput()
+        {
+            string input = "";
+            ConsoleKeyInfo key;
+
+            do
+            {
+                key = Console.ReadKey(true);
+
+                if (!char.IsControl(key.KeyChar))
+                {
+                    input += key.KeyChar;
+                    Console.Write("*");
+                }
+            } while (key.Key != ConsoleKey.Enter);
+
+            Console.WriteLine();
+
+            return input;
         }
     }
 }
