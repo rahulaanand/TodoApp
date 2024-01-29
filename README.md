@@ -15,4 +15,4 @@ Organize your tasks effortlessly! This easy-to-use Todo App combines a simple co
 
 - **Created & Due Dates:** Tasks include creation and due dates, visible in the console, helping you stay organized and on schedule.
 
-![image](https://github.com/rahulaanand/TodoApp/assets/53602252/75f031e5-f3a6-49d5-b238-eedf2cb6406c)
+![image](https://github.com/rahulaanand/TodoApp/assets/53602252/b331e42d-e69d-4010-aff5-83c51633d5b8)
