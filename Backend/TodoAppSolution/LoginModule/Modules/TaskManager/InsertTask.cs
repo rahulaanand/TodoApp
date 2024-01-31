@@ -109,7 +109,7 @@ namespace LoginModule.Modules.TaskManager
                         break;
                 }
 
-                string status = "Not Completed"; 
+                string status = "Not Completed";
 
                 InsertTaskToDatabase(userId, titleId, description, dueTime, status);
             }
@@ -150,3 +150,5 @@ namespace LoginModule.Modules.TaskManager
         }
     }
 }
+
+

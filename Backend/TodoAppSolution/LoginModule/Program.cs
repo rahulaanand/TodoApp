@@ -51,7 +51,6 @@ class Program
 
                 RegisterUser.RegisterUsers(connectionString.connectionString, username, password, email);
 
-                Console.WriteLine("Registration successful. You can now log in.");
             }
             else
             {
