@@ -1,5 +1,4 @@
 ﻿using Microsoft.Data.SqlClient;
-using System;
 
 namespace LoginModule.Modules.TaskManager
 {

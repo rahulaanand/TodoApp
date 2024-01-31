@@ -6,6 +6,12 @@ namespace LoginModule.LoginModule
     {
         public static void RegisterUsers(string connectionString, string username, string password, string email)
         {
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                Console.WriteLine("Username and password are required.");
+                return;
+            }
+
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 connection.Open();
@@ -18,6 +24,9 @@ namespace LoginModule.LoginModule
                     command.Parameters.AddWithValue("@Email", email);
 
                     int rowsAffected = command.ExecuteNonQuery();
+
+                    Console.WriteLine("Registration successful. You can now log in.");
+
                 }
             }
         }
