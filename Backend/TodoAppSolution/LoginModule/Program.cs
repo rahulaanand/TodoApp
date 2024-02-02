@@ -33,7 +33,7 @@ class Program
                 }
                 else
                 {
-                    Console.WriteLine("User not found or authentication failed. Please register to log in.");
+                    Console.WriteLine("User not found.");
                 }
             }
             else if (response == "no")

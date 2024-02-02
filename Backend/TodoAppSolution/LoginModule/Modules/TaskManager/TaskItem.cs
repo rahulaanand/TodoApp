@@ -1,6 +1,4 @@
-﻿using System;
-
-public class TaskItem
+﻿public class TaskItem
 {
     public Guid TitleId { get; set; }
     public string TitleName { get; set; }

@@ -25,7 +25,7 @@ public class TodoAppManager
 
             Console.WriteLine("10. Exit");
 
-            Console.Write("Enter your choice (1-7): ");
+            Console.Write("Enter your choice (1-10): ");
 
             string? choice = Console.ReadLine();
             Console.WriteLine("\n");
