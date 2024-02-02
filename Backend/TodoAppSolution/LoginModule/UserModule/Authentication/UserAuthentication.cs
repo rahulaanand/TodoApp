@@ -21,25 +21,25 @@ public class Authentication
                     {
                         if (reader.Read())
                         {
-                            Guid userId = reader.GetGuid(0); 
+                            Guid userId = reader.GetGuid(0);
                             string storedHashedPassword = reader["Password"].ToString();
 
                             string enteredHashedPassword = HashPassword.Hash(enteredPassword);
 
                             if (string.Equals(enteredHashedPassword, storedHashedPassword))
                             {
-                                return userId; 
+                                return userId;
                             }
                             else
                             {
                                 Console.WriteLine("Invalid password.");
-                                return Guid.Empty; 
+                                return Guid.Empty;
                             }
                         }
                         else
                         {
                             Console.WriteLine($"User with username '{username}' does not exist.");
-                            return Guid.Empty; 
+                            return Guid.Empty;
                         }
                     }
                 }

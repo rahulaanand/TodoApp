@@ -26,11 +26,11 @@ namespace LoginModule.Modules.TaskTitleManager
 
                         if (rowsAffected > 0)
                         {
-                            Console.WriteLine("Task Title added successfully!");                   
+                            Console.WriteLine("Task Title added successfully!");
                         }
                         else
                         {
-                            Console.WriteLine("Failed to add Task Title. Please try again.");
+                            Console.WriteLine("Failed to add Task Title");
                         }
                     }
                 }
@@ -40,7 +40,7 @@ namespace LoginModule.Modules.TaskTitleManager
                 Console.WriteLine($"Error adding new task title: {ex.Message}");
             }
 
-            return Guid.Empty; 
+            return Guid.Empty;
         }
     }
 }
